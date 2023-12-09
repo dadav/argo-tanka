@@ -8,11 +8,12 @@ check:
 
 # start the cluster
 start: check
-	@k3d clister list foo || k3d cluster create foo
+	@k3d cluster list foo &>/dev/null || k3d cluster create foo
 
+# install argocd with tanka support
 install: start
-	@tk apply environments/default
+	@tk apply tanka/environments/default
 
 # remove the cluster
 destroy: check
-	@k3d cluster list foo && k3d cluster delete foo
+	@k3d cluster list foo &>/dev/null && k3d cluster delete foo
