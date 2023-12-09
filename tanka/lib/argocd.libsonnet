@@ -126,46 +126,48 @@ local newArgoInstance(ns='argocd') = helm.template('argo-cd', '../../charts/argo
       ],
     },
   },
-}) + { argoCdPlugin: {
-  apiVersion: 'v1',
-  kind: 'ConfigMap',
-  metadata: {
-    name: 'cmp-plugin',
-    namespace: ns,
+}) + {
+  argoCdPlugin: {
+    apiVersion: 'v1',
+    kind: 'ConfigMap',
+    metadata: {
+      name: 'cmp-plugin',
+      namespace: ns,
+    },
+    data: {
+      'plugin.yaml': |||
+        %s
+      ||| % std.manifestYamlDoc({
+        apiVersion: 'argoproj.io/v1alpha1',
+        kind: 'ConfigManagementPlugin',
+        metadata: {
+          name: 'tanka',
+          namespace: ns,
+        },
+        spec: {
+          version: tankaVersion,
+          init: {
+            command: [
+              'sh',
+              '-c',
+              '%s/jb install' % pluginDir,
+            ],
+          },
+          generate: {
+            command: [
+              'sh',
+              '-c',
+              'TANKA_HELM_PATH=%s/helm %s/tk show environments/${ARGOCD_ENV_TK_ENV} --dangerous-allow-redirect' % [pluginDir, pluginDir],
+            ],
+          },
+          discover: {
+            fileName: 'jsonnetfile.json',
+          },
+        },
+      }),
+    },
   },
-  data: {
-    'plugin.yaml': |||
-      %s
-    ||| % std.manifestYamlDoc({
-      apiVersion: 'argoproj.io/v1alpha1',
-      kind: 'ConfigManagementPlugin',
-      metadata: {
-        name: 'tanka',
-        namespace: ns,
-      },
-      spec: {
-        version: tankaVersion,
-        init: {
-          command: [
-            'sh',
-            '-c',
-            '%s/jb install' % pluginDir,
-          ],
-        },
-        generate: {
-          command: [
-            'sh',
-            '-c',
-            'TANKA_HELM_PATH=%s/helm %s/tk show environments/${ARGOCD_ENV_TK_ENV} --dangerous-allow-redirect' % [pluginDir, pluginDir],
-          ],
-        },
-        discover: {
-          fileName: '*',
-        },
-      },
-    }),
-  },
-} };
+};
 
 {
   newArgoInstance:: newArgoInstance,
