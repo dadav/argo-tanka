@@ -6,4 +6,4 @@ Repo which contains some tanka / argocd experiments.
 
 ## Can I use this somehow, too?
 
-Sure, just run `just start`.
+Sure, just run `just install`.
