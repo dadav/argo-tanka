@@ -156,7 +156,7 @@ local newArgoInstance(ns='argocd') = helm.template('argo-cd', '../../charts/argo
           command: [
             'sh',
             '-c',
-            '%s/tk show environments/${ARGOCD_ENV_TK_ENV} --dangerous-allow-redirect' % pluginDir,
+            'TANKA_HELM_PATH=%s/helm %s/tk show environments/${ARGOCD_ENV_TK_ENV} --dangerous-allow-redirect' % [pluginDir, pluginDir],
           ],
         },
         discover: {
