@@ -89,7 +89,7 @@ local newArgoInstance(ns='argocd') = helm.template('argo-cd', '../../charts/argo
           command: [
             'sh',
             '-c',
-            '%s && %s && %s && %s && /var/run/argocd/argocd-cmp-server' % [jsonnetBundlerCurlCommand, tankaCurlCommand, helmCurlCommand, helmUnpackCommand, chmodCommands],
+            '%s && %s && %s && %s && %s && /var/run/argocd/argocd-cmp-server' % [jsonnetBundlerCurlCommand, tankaCurlCommand, helmCurlCommand, helmUnpackCommand, chmodCommands],
           ],
           securityContext: {
             runAsNonRoot: true,
