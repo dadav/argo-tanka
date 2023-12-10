@@ -22,3 +22,7 @@ destroy: check
 # reset the whole environment
 reset: check destroy start install
 
+# enable portforwarding
+port-forward: check
+	@kubectl -n argocd wait --for=condition=ready pod -l app.kubernetes.io/name=argocd-server --timeout=120s
+	@kubectl -n argocd port-forward "$(kubectl -n argocd wait --for=condition=ready pod -l app.kubernetes.io/name=argocd-server --timeout=30s -o jsonpath='{.metadata.name}')" 8080:8080
