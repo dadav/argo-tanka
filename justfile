@@ -18,3 +18,7 @@ install: start
 # remove the cluster
 destroy: check
 	@k3d cluster list foo &>/dev/null && k3d cluster delete foo
+
+# reset the whole environment
+reset: check destroy start install
+
