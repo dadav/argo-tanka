@@ -29,7 +29,7 @@ local newAppProject(name, ns='argocd') =
   + argo_cd.argoproj.v1alpha1.appProject.mixin.spec.withDestinationsMixin({ namespace: '*', server: '*' })
   + argo_cd.argoproj.v1alpha1.appProject.mixin.metadata.withNamespace(ns);
 
-local newArgoInstance(ns='argocd') = helm.template('argo-cd', '../../charts/argo-cd', {
+local newArgoInstance(ns='argocd') = helm.template('argo-cd', '../charts/argo-cd', {
                                        namespace: ns,
                                        values: {
                                          configs: { params: { 'server.insecure': true, 'server.disable.auth': true } },
