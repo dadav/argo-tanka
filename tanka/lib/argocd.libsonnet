@@ -4,8 +4,8 @@ local argo_cd = import 'github.com/jsonnet-libs/argo-cd-libsonnet/2.7/main.libso
 local tanka = import 'github.com/grafana/jsonnet-libs/tanka-util/main.libsonnet';
 local helm = tanka.helm.new(std.thisFile);
 
-local tankaVersion = 'v0.20.0';
-local helmVersion = 'v3.13.2';
+local tankaVersion = 'v0.24.0';
+local helmVersion = 'v3.13.3';
 local jsonnetBundlerVersion = 'v0.5.1';
 local pluginDir = '/home/argocd/cmp-server/plugins';
 
