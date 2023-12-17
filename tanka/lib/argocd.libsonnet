@@ -20,6 +20,7 @@ local newApp(name, url, path, env='default', ns='argocd', destination_ns='argocd
   + argo_cd.argoproj.v1alpha1.application.mixin.spec.destination.withNamespace(destination_ns)
   + argo_cd.argoproj.v1alpha1.application.mixin.spec.syncPolicy.automated.withPrune(true)
   + argo_cd.argoproj.v1alpha1.application.mixin.spec.syncPolicy.automated.withSelfHeal(true)
+  + argo_cd.argoproj.v1alpha1.application.mixin.spec.syncPolicy.withSyncOptions(['CreateNamespace=true'])
   + argo_cd.argoproj.v1alpha1.application.mixin.spec.source.withRepoURL(url);
 
 local newAppProject(name, ns='argocd') =
