@@ -119,6 +119,8 @@ local newArgoInstance(ns='argocd') = helm.template('argo-cd', '../charts/argo-cd
                                              discover: {
                                                fileName: 'jsonnetfile.json',
                                              },
+                                             allowConcurrency: true,
+                                             lockRepo: false,
                                            },
                                          }),
                                        },
