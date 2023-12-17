@@ -28,6 +28,7 @@ local newAppProject(name, ns='argocd') =
   + argo_cd.argoproj.v1alpha1.appProject.mixin.spec.withDescription('my foo orga')
   + argo_cd.argoproj.v1alpha1.appProject.mixin.spec.withSourceRepos('*')
   + argo_cd.argoproj.v1alpha1.appProject.mixin.spec.withClusterResourceWhitelistMixin({ group: '*', kind: '*' })
+  + argo_cd.argoproj.v1alpha1.appProject.mixin.spec.withNamespaceResourceWhitelistMixin({ group: '*', kind: '*' })
   + argo_cd.argoproj.v1alpha1.appProject.mixin.spec.withDestinationsMixin({ namespace: '*', server: '*' })
   + argo_cd.argoproj.v1alpha1.appProject.mixin.metadata.withNamespace(ns);
 
