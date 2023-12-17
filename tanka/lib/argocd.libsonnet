@@ -12,11 +12,11 @@ local pluginDir = '/home/argocd/cmp-server/plugins';
 local newApp(name, url, path, env='default', ns='argocd') =
   argo_cd.argoproj.v1alpha1.application.new(name)
   + argo_cd.argoproj.v1alpha1.application.mixin.spec.withProject('default')
-  + argo_cd.argoproj.v1alpha1.application.mixin.metadata.withNamespace(ns)
   + argo_cd.argoproj.v1alpha1.application.mixin.spec.source.withPath(path)
   + argo_cd.argoproj.v1alpha1.application.mixin.spec.source.withTargetRevision('HEAD')
   + argo_cd.argoproj.v1alpha1.application.mixin.spec.source.plugin.withEnvMixin({ name: 'TK_ENV', value: 'default' })
   + argo_cd.argoproj.v1alpha1.application.mixin.spec.destination.withServer('https://kubernetes.default.svc')
+  + argo_cd.argoproj.v1alpha1.application.mixin.spec.destination.withNamespace(ns)
   + argo_cd.argoproj.v1alpha1.application.mixin.spec.syncPolicy.automated.withPrune(true)
   + argo_cd.argoproj.v1alpha1.application.mixin.spec.syncPolicy.automated.withSelfHeal(true)
   + argo_cd.argoproj.v1alpha1.application.mixin.spec.source.withRepoURL(url);
