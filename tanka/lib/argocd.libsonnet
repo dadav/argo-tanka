@@ -9,9 +9,9 @@ local helmVersion = 'v3.13.2';
 local jsonnetBundlerVersion = 'v0.5.1';
 local pluginDir = '/home/argocd/cmp-server/plugins';
 
-local newApp(name, url, path, env='default', ns='argocd', destination_ns='argocd') =
+local newApp(name, url, path, project='default', env='default', ns='argocd', destination_ns='argocd') =
   argo_cd.argoproj.v1alpha1.application.new(name)
-  + argo_cd.argoproj.v1alpha1.application.mixin.spec.withProject('default')
+  + argo_cd.argoproj.v1alpha1.application.mixin.spec.withProject(project)
   + argo_cd.argoproj.v1alpha1.application.mixin.metadata.withNamespace(ns)
   + argo_cd.argoproj.v1alpha1.application.mixin.spec.source.withPath(path)
   + argo_cd.argoproj.v1alpha1.application.mixin.spec.source.withTargetRevision('HEAD')
@@ -27,7 +27,6 @@ local newAppProject(name, ns='argocd') =
   argo_cd.argoproj.v1alpha1.appProject.new(name)
   + argo_cd.argoproj.v1alpha1.appProject.mixin.spec.withDescription('my foo orga')
   + argo_cd.argoproj.v1alpha1.appProject.mixin.spec.withSourceRepos('*')
-  + argo_cd.argoproj.v1alpha1.appProject.mixin.spec.withClusterResourceWhitelistMixin({ group: '*', kind: '*' })
   + argo_cd.argoproj.v1alpha1.appProject.mixin.spec.withDestinationsMixin({ namespace: '*', server: '*' })
   + argo_cd.argoproj.v1alpha1.appProject.mixin.metadata.withNamespace(ns);
 
